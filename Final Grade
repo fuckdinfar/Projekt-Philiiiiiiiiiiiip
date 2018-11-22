@@ -1,0 +1,17 @@
+import numpy as np
+grades = np.array([[0,2,4],[4,2,10],[10,12,7],[4,7,12],[0,2,2],[2,2,10],[10,12,7],[7,7,4],[0,2,2]])
+
+def computeFinalGrades(grades):
+    gradesFinal = np.array([])
+    for i in range(grades[0,:]):
+        studenti = grades[:,i]
+        for i in range(studenti):
+            if i == -3:
+                meanstudenti = -3
+        if np.size(studenti > 1):
+            studenti.remove(min(studenti))
+            meanstudenti = np.mean(studenti)
+    gradesFinal +=(meanstudenti)
+    return gradesFinal
+
+print(computeFinalGrades(grades))
