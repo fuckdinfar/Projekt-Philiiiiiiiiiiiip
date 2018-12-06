@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Dec  6 11:38:02 2018
+
+@author: Thomas
+"""
+
+#Grades per Assignment plot
+import numpy as np
+import matplotlib.pyplot as plt
+
+import csv
+import pandas as pd
+
+filelines = pd.read_csv("test.csv")
+matrix = np.array(filelines)
+almostgrades = np.delete(matrix,0,1)
+grades = np.delete(almostgrades,0,1)
+    
+def gradesPlot(grades): 
+    # We use the jitter function to avoid overlapping data points
+    jitter_min = -0.2
+    jitter_max = 0.2
+    grades = grades.transpose()
+    
+    # The enumerate function ensures that our x and y values are in the same dimension
+    z=[]
+    x1 = []
+    for i in range(np.shape(grades)[1]):  
+        x = i + 1 * np.ones(len(grades)) + (jitter_max - jitter_min) * np.random.random(size = len(grades)) + jitter_min  
+        y = grades[:,i] 
+        x1 += [i+1]
+        z += [np.mean(grades[:,i])]
+    
+        #Plots data points as crosses in the coordinate system
+        plt.plot(x, y, 'x')# label = 'Assignment #{:d}'.format(i), clip_on = False)
+        
+    plt.plot(x1,z,"r-")
+    plt.xticks(np.arange(1.0, len(grades) + 1))
+    plt.yticks(np.array([-3,0,2,4,7,10,12]))
+
+    # Labels the axis
+    plt.xlabel('Assignments')
+    plt.ylabel('Grades')
+    plt.show()
+    
+    #ymean = np.array([])
+    #xmean = np.array([])
+
+
+    #for i in range(len(grades[0,:])):
+     #   ymean1 = np.mean(grades[:,i])
+     #   ymean = np.append(ymean, ymean1)
+        
+    #for j in range(1,(len(grades[0,:])+1)):
